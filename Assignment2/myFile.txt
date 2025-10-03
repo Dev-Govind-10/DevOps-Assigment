@@ -1,0 +1,2 @@
+Hi this is the assignment2.
+Doing the exercise for the devOps
