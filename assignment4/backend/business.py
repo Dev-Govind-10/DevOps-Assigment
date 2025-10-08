@@ -1,37 +1,23 @@
-# import json
-# def get_data():
-
-#     with open("names.json", "r") as f:
-#         names = json.load(f)
-
-#         # names = dict(names)
-#         print(names)
-#         return names
-# def set_data(data:dict):
-
-#     with open("names.json", "w") as f:
-#         f.write(str(data))
 
 import json
-from typing import Dict, Any
+from typing import Dict, Any, List
 
-# FILE_PATH = "names.json"
+FILE_PATH = "names.json"
 
-def get_data() -> Any:
+def get_data() -> List[Dict[str, Any]]:
     """Read and return JSON data from names.json"""
     try:
-        with open("names.json", "r") as f:
-            names = json.load(f)
-            print(names)
-            return names
+        with open(FILE_PATH, "r") as f:
+            return json.load(f)
     except FileNotFoundError:
-        print(f"names.json not found, returning empty list")
-        return []
-    except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
-        return []
+        return []  # file doesn’t exist yet
+    except json.JSONDecodeError:
+        return []  # file is empty or invalid
 
-def set_data(data: Dict) -> None:
-    """Write dictionary data to names.json as valid JSON"""
-    with open("names.json", "w") as f:
-        json.dump(data, f, indent=4)
+
+def set_data(data: Dict[str, Any]) -> None:
+    """Append a new record into names.json"""
+    existing_data = get_data()
+    existing_data.append(data)
+    with open(FILE_PATH, "w") as f:
+        json.dump(existing_data, f, indent=4)
