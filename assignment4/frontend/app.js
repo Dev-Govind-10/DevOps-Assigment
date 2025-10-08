@@ -8,7 +8,7 @@ const moment = require('moment');
 
 const app = express();
 const PORT = 3000;
-const BACKEND_URL = "http://0.0.0.0:8000";
+const BACKEND_URL = "http://backend:8000";
 
 // Set view engine
 app.set('view engine', 'ejs');
